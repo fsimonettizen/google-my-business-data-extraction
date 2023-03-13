@@ -1,0 +1,151 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'AWS CloudFormation template for the Google My Business data extraction'
+Parameters:
+  ApplicationName:
+    Description: Name of the application deploying for the GMB Social Media Analytics
+    Type: String
+    Default: Social-Digital-Analyzer
+  VpcCIDR:
+    Description: Please enter the IP range (CIDR notation) for this VPC
+    Type: String
+    Default: 10.193.0.0/16
+  PublicSubnet1CIDR:
+    Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
+    Type: String
+    Default: 10.193.10.0/24'
+
+# It is necessary?
+Mappings:
+  #  This is just the Amazon Linux AMI:
+  AmazonLinuxAMI:
+    us-east-1: # Virginia
+      AMI: ami-a4c7edb2
+    us-east-2: # Ohio
+      AMI: ami-8a7859ef
+    us-west-1: # North California
+      AMI: ami-327f5352
+    us-west-2: # Oregon
+      AMI: ami-6df1e514
+    eu-west-1: # Ireland
+      AMI: ami-d7b9a2b1
+    eu-west-2: # London
+      AMI: ami-ed100689
+    eu-central-1: # Frankfurt
+      AMI: ami-82be18ed
+    sa-east-1: # Sao Paulo
+      AMI: ami-87dab1eb
+    ap-southeast-1: # Singapore
+      AMI: ami-77af2014
+    ap-southeast-2: # Sydney
+      AMI: ami-10918173
+    ap-northeast-1: # Tokyo
+      AMI: ami-3bd3c45c
+    ap-northeast-2: # Seoul
+      AMI: ami-e21cc38c
+    ca-central-1: # Canada
+      AMI: ami-a7aa15c3
+    ap-south-1: # Mumbai
+      AMI: ami-47205e28
+
+Resources:
+  RDSSecurityGroup:
+    Type: AWS::RDS::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for RDS Social Digital Analyzer 
+      VpcId: !Ref VPC
+      Tags:
+      - Key: Name
+        Value: RDSSecurityGroup
+      - Key: ResourceGroup
+        Value: CloudFormationResource
+      - Key: Project
+        Value: !Join ['-', [!Ref 'ApplicationName', !Ref 'AWS::Region']]
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 0.0.0.0/0
+
+    Type: AWS::Lambda::Function
+    Properties: 
+      Code: 
+        Code
+      DeadLetterConfig: 
+        DeadLetterConfig
+      Description: String
+      Environment: 
+        Environment
+      FunctionName: String
+      Handler: String
+      KmsKeyArn: String
+      Layers: 
+        - String
+      MemorySize: Integer
+      ReservedConcurrentExecutions: Integer
+      Role: String
+      Runtime: String
+      Tags: 
+        - Tag
+      Timeout: Integer
+      TracingConfig: 
+        TracingConfig
+      VpcConfig: 
+        VpcConfig
+    
+  Type: AWS::RDS::DBInstance
+  Properties: 
+    AllocatedStorage: String
+    AllowMajorVersionUpgrade: Boolean
+    AutoMinorVersionUpgrade: Boolean
+    AvailabilityZone: String
+    BackupRetentionPeriod: Integer
+    CharacterSetName: String
+    CopyTagsToSnapshot: Boolean
+    DBClusterIdentifier: String
+    DBInstanceClass: String
+    DBInstanceIdentifier: String
+    DBName: String
+    DBParameterGroupName: String
+    DBSecurityGroups: 
+      - String
+    DBSnapshotIdentifier: String
+    DBSubnetGroupName: String
+    DeleteAutomatedBackups: Boolean
+    DeletionProtection: Boolean
+    Domain: String
+    DomainIAMRoleName: String
+    EnableCloudwatchLogsExports: 
+      - String
+    EnableIAMDatabaseAuthentication: Boolean
+    EnablePerformanceInsights: Boolean
+    Engine: String
+    EngineVersion: String
+    Iops: Integer
+    KmsKeyId: String
+    LicenseModel: String
+    MasterUserPassword: String
+    MasterUsername: String
+    MonitoringInterval: Integer
+    MonitoringRoleArn: String
+    MultiAZ: Boolean
+    OptionGroupName: String
+    PerformanceInsightsKMSKeyId: String
+    PerformanceInsightsRetentionPeriod: Integer
+    Port: String
+    PreferredBackupWindow: String
+    PreferredMaintenanceWindow: String
+    ProcessorFeatures: 
+      - ProcessorFeature
+    PromotionTier: Integer
+    PubliclyAccessible: Boolean
+    SourceDBInstanceIdentifier: String
+    SourceRegion: String
+    StorageEncrypted: Boolean
+    StorageType: String
+    Tags: 
+      - Tag
+    Timezone: String
+    UseDefaultProcessorFeatures: Boolean
+    VPCSecurityGroups: 
+      - String
